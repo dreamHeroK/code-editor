@@ -4,54 +4,18 @@
 
 在线示例：[https://wanglin2.github.io/code-run-online/](https://wanglin2.github.io/code-run-online/)。
 
-# 相关文章
-
-[使用Skypack在浏览器上直接导入ES模块](https://juejin.cn/post/7094508128401621005)
-
-[快速搭建一个代码在线编辑预览工具](https://juejin.cn/post/6965467528600485919)
-
-[如何手动解析vue单文件并预览？](https://juejin.cn/post/7007725841689870366)
-
-[手把手教你实现在Monaco Editor中使用VSCode主题](https://juejin.cn/post/7012514944579502116)
-
-# 特性
-
-- [x] 支持多种预处理语言
-
-- [x] 支持多种布局随意切换
-
-- [x] 支持添加额外的`css`、`js`资源
-
-- [x] 内置多种常用模板
-
-- [x] 支持导出`zip`
-
-- [x] 支持代码格式化
-
-- [x] 美观强大的控制台
-
-- [x] 支持`vue`单文件（2.x、3.x）
-
-- [x] 支持直接移植`VSCode`主题，并且已经内置了大量优质主题
-
-- [x] 内置支持保存到github gist【[gist API](https://docs.github.com/cn/rest/reference/gists)】，想要保存到自己的存储体系修改也十分简单
-
-- [x] 内置支持在未配置github gist的情况下将变动保存到url中，可方便的将url分享给他人查看
-
-- [x] 内置支持生成和[carbon](https://carbon.now.sh/)一样漂亮美观的代码图片
-
-- [x] 内置使用[unpkg](https://unpkg.com/)及[importmap](https://github.com/WICG/import-maps)支持在浏览器上使用ES模块语法
-
-- [x] 支持嵌入模式，方便在文档网站中使用，让文档示例更轻松
-
 # 本地构建
 
 ```bash
-git clone https://github.com/wanglin2/code-run.git
+git clone https://github.com/dreamHeroK/code-editor.git
 
 cd code-run
 
+# npm 安装
 npm i
+
+# yarn 安装
+yarn install --ignore-enines
 
 npm run serve
 ```
@@ -70,7 +34,7 @@ npm run serve
 
 默认的路由模式为`hash模式`，如果需要使用`history`模式请修改`src/config/index.js`文件的`routerMode`字段。
 
-另外history模式下如果存在多级路径，可能需要修改以下文件：
+另外 history 模式下如果存在多级路径，可能需要修改以下文件：
 
 1.修改`/public/index.html`文件的`prettier`相关`js`资源的路径；
 
@@ -86,7 +50,7 @@ npm run build
 
 框架：`Vue 3.X`全家桶，通过`script setup`使用`组合式API`
 
-UI库：`element-plus`
+UI 库：`element-plus`
 
 代码编辑器：`Monaco Editor`
 
@@ -98,7 +62,7 @@ UI库：`element-plus`
 
 ![界面截图3](./assets/view3.jpg)
 
-# 关于使用ESM
+# 关于使用 ESM
 
 目前在`JavaScript`、`TypeScript`、`CoffeeScript`、`Vue3`、`Vue2`等模式下支持使用`ESM`，默认情况下，如果你直接按下列方式导入模块的话：
 
@@ -190,16 +154,16 @@ import moment from 'https://unpkg.com/moment?module'
 import VueSFC from '../pages/edit/layouts/VueSFC.vue'
 
 export const layoutList = [
-	// ...
-	{
-		name: 'Vue单文件',
-		value: 'vue',
-	}
+  // ...
+  {
+    name: 'Vue单文件',
+    value: 'vue'
+  }
 ]
 
 export const layoutMap = {
-	// ...
-	vue: VueSFC
+  // ...
+  vue: VueSFC
 }
 ```
 
@@ -221,7 +185,11 @@ export const layoutMap = {
     <!-- 预览&控制台，索引为1，允许拖动进行缩放 -->
     <DragItem :index="1" :disabled="false">
       <!-- DragItem又嵌套了一个容器组件，该容器的直接DragItem直接数量为2，方向垂直排列，第一个DragItem直接允许缩小到0，第二个DragItem组件默认显示的高度为48px，且最小允许缩小到48px -->
-      <Drag :number="2" dir="v" :config="[{ min: 0 }, { min: 48, default: 48 }]">
+      <Drag
+        :number="2"
+        dir="v"
+        :config="[{ min: 0 }, { min: 48, default: 48 }]"
+      >
         <DragItem
           :index="0"
           :disabled="true"
@@ -248,11 +216,11 @@ import { reactive } from 'vue'
 
 // 配置只显示vue编辑器
 const showList = reactive([
-    {
-        title: 'VUE',// 编辑器名称
-        disableDrag: true,// 禁止拖动进行缩放
-        showTouchBar: false// 隐藏推动条
-    }
+  {
+    title: 'VUE', // 编辑器名称
+    disableDrag: true, // 禁止拖动进行缩放
+    showTouchBar: false // 隐藏推动条
+  }
 ])
 </script>
 ```
@@ -261,66 +229,66 @@ const showList = reactive([
 
 ## 布局相关组件文档
 
-### Drag组件
+### Drag 组件
 
 该组件相当于是一个容器，每个容器会实例化一个`Resize`尺寸拖动调整类，内部需要放置`DragItem`组件。
 
 组件`props`：
 
-|   名称   |   介绍   |   类型   |   默认值   |
-| ---- | ---- | ---- | ---- |
-|   dir   |   容器内部的`DragItem`组件排列方式，可选项：h（水平排列）、v（垂直排列）   |   String   |   h   |
-|   number   |   内部的`DragItem`组件数量   |   Number   |   0   |
-|   config   |   配置内部的`DragItem`组件的信息，数组类型，每一项都是一个对象，具体的属性请看表1   |   Array   |   []   |
+| 名称   | 介绍                                                                             | 类型   | 默认值 |
+| ------ | -------------------------------------------------------------------------------- | ------ | ------ |
+| dir    | 容器内部的`DragItem`组件排列方式，可选项：h（水平排列）、v（垂直排列）           | String | h      |
+| number | 内部的`DragItem`组件数量                                                         | Number | 0      |
+| config | 配置内部的`DragItem`组件的信息，数组类型，每一项都是一个对象，具体的属性请看表 1 | Array  | []     |
 
-#### 表1
+#### 表 1
 
 `config`数组每一项的对象的属性：
 
-|   名称   |   介绍   |   类型   |   默认值   |
-| ---- | ---- | ---- | ---- |
-|   default   |   对应索引的`DragItem`组件默认显示的尺寸，`dir`为`h`时指宽度，为`v`时指高度   |   Number   |   默认容器内的所有`DragItem`组件平分空间   |
-|   min   |   对应索引的`DragItem`组件允许显示的最小尺寸，当发生拖动时，如果该组件空间被挤压，默认允许被压缩到0，即完全不显示，如果配置了该属性，则缩小到配置的大小后不再变化   |   Number   |   0   |
-|   max   |   对应索引的`DragItem`组件允许显示的最大尺寸，当发生拖动时，如果该组件空间被增加，默认会增加到允许的最大尺寸，如果配置了该属性，则增加到配置的大小后不再变化   |   Number   |   0   |
+| 名称    | 介绍                                                                                                                                                             | 类型   | 默认值                                 |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------------------------------------- |
+| default | 对应索引的`DragItem`组件默认显示的尺寸，`dir`为`h`时指宽度，为`v`时指高度                                                                                        | Number | 默认容器内的所有`DragItem`组件平分空间 |
+| min     | 对应索引的`DragItem`组件允许显示的最小尺寸，当发生拖动时，如果该组件空间被挤压，默认允许被压缩到 0，即完全不显示，如果配置了该属性，则缩小到配置的大小后不再变化 | Number | 0                                      |
+| max     | 对应索引的`DragItem`组件允许显示的最大尺寸，当发生拖动时，如果该组件空间被增加，默认会增加到允许的最大尺寸，如果配置了该属性，则增加到配置的大小后不再变化       | Number | 0                                      |
 
-### DragItem组件
+### DragItem 组件
 
 该组件代表一个可拖动的块，需要放置在`Drag`组件下，通过`slot`来传入需要实际显示的内容。`DragItem`组件内可再嵌套`Drag`容器。
 
 组件`props`：
 
-|   名称   |   介绍   |   类型   |   默认值   |
-| ---- | ---- | ---- | ---- |
-|   disabled   |   是否禁止拖动   |   Boolean   |   false   |
-|   touchBarSize   |   拖动条的尺寸，`dir`为`h`时指宽度，为`v`时指高度   |   Number   |   20   |
-|   index   |   该组件在容器内的同级`DragItem`组件列表中的索引，从0开始   |   Number   |   0   |
-|   showTouchBar   |   是否显示拖动条   |   Boolean   |   true   |
-|   title   |   标题   |   String   |      |
-|   hide   |   是否隐藏该组件   |   Boolean   |   false   |
+| 名称         | 介绍                                                      | 类型    | 默认值 |
+| ------------ | --------------------------------------------------------- | ------- | ------ |
+| disabled     | 是否禁止拖动                                              | Boolean | false  |
+| touchBarSize | 拖动条的尺寸，`dir`为`h`时指宽度，为`v`时指高度           | Number  | 20     |
+| index        | 该组件在容器内的同级`DragItem`组件列表中的索引，从 0 开始 | Number  | 0      |
+| showTouchBar | 是否显示拖动条                                            | Boolean | true   |
+| title        | 标题                                                      | String  |        |
+| hide         | 是否隐藏该组件                                            | Boolean | false  |
 
-### Editor组件
+### Editor 组件
 
 该组件目前包含`js`、`css`、`html`、`vue`四个编辑器，可以控制具体显示哪几个，以及它们的排列方式。
 
 组件`props`：
 
-|   名称   |   介绍   |   类型   |   默认值   |
-| ---- | ---- | ---- | ---- |
-|   hide   |   是否隐藏编辑器   |   Boolean   |   false   |
-|   dir   |   排布方向，v（垂直）、h（水平）   |   String   |   h   |
-|   showList   |   要显示的编辑器列表，数组类型，每一项可以是数字也可以是一个对象，见表2   |   Array   |   ['HTML', 'CSS', 'JS']   |
+| 名称     | 介绍                                                                   | 类型    | 默认值                |
+| -------- | ---------------------------------------------------------------------- | ------- | --------------------- |
+| hide     | 是否隐藏编辑器                                                         | Boolean | false                 |
+| dir      | 排布方向，v（垂直）、h（水平）                                         | String  | h                     |
+| showList | 要显示的编辑器列表，数组类型，每一项可以是数字也可以是一个对象，见表 2 | Array   | ['HTML', 'CSS', 'JS'] |
 
-#### 表2
+#### 表 2
 
 `showList`数组的每一项可以是一个字符串，可选值为：`HTML`、 `CSS`、 `JS`、`VUE`，代表四种编辑器，配置了哪几个就显示哪几个。
 
 如果需要再配置一些属性，比如是否允许该编辑器拖动等等，可配置的属性如下：
 
-|   名称   |   介绍   |   类型   |   默认值   |
-| ---- | ---- | ---- | ---- |
-|   title   |   编辑器名称，可选项：`HTML`、 `CSS`、 `JS`、`VUE`   |   String   |      |
-|   disableDrag   |   是否禁止拖动缩放该编辑器   |   Boolean   |      |
-|   showTouchBar   |   是否显示该编辑器的推动条   |   Boolean   |      |
+| 名称         | 介绍                                             | 类型    | 默认值 |
+| ------------ | ------------------------------------------------ | ------- | ------ |
+| title        | 编辑器名称，可选项：`HTML`、 `CSS`、 `JS`、`VUE` | String  |        |
+| disableDrag  | 是否禁止拖动缩放该编辑器                         | Boolean |        |
+| showTouchBar | 是否显示该编辑器的推动条                         | Boolean |        |
 
 # 暂未解决的问题
 

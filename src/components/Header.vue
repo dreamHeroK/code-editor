@@ -2,7 +2,7 @@
   <div class="header">
     <!-- logo -->
     <div class="left">
-      <h1>CodeRun</h1>
+      <h1>CodeEditor</h1>
     </div>
     <!-- 标题输入栏 -->
     <div class="center">
@@ -196,35 +196,35 @@
 </template>
 
 <script setup>
+import templateList from '@/config/templates'
+import exportZip from '@/utils/exportZip'
+import { request } from '@/utils/octokit'
+import dayjs from 'dayjs'
 import {
-  getCurrentInstance,
-  ref,
+  ElButton,
+  ElDialog,
+  ElDrawer,
+  ElInput,
+  ElMessage,
+  ElPagination,
+  ElTable,
+  ElTableColumn,
+  ElTabPane,
+  ElTabs
+} from 'element-plus'
+import {
   computed,
-  onBeforeUnmount,
+  getCurrentInstance,
   nextTick,
+  onBeforeUnmount,
+  ref,
   shallowRef
 } from 'vue'
-import templateList from '@/config/templates'
+import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import Setting from './Setting.vue'
 import SettingLayout from './SettingLayout.vue'
 import SettingTheme from './SettingTheme.vue'
-import exportZip from '@/utils/exportZip'
-import {
-  ElMessage,
-  ElButton,
-  ElDialog,
-  ElInput,
-  ElTabs,
-  ElTabPane,
-  ElDrawer,
-  ElTable,
-  ElTableColumn,
-  ElPagination
-} from 'element-plus'
-import { request } from '@/utils/octokit'
-import dayjs from 'dayjs'
-import { useRouter, useRoute } from 'vue-router'
 import Share from './Share.vue'
 
 // hooks定义部分
