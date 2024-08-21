@@ -2,7 +2,7 @@ const path = require('path')
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
-    publicPath: '/',
+    publicPath: './',
     outputDir: './docs/',
     lintOnSave: false,
     productionSourceMap: false,
