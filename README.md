@@ -2,7 +2,7 @@
 
 一个代码在线编辑预览工具，类似`codepen`。
 
-在线示例：[https://wanglin2.github.io/code-run-online/](https://wanglin2.github.io/code-run-online/)。
+在线示例：[https://dreamherok.github.io/code-editor/](https://dreamherok.github.io/code-editor/)。
 
 # 本地构建
 
