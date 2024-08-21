@@ -1,6 +1,6 @@
+import store from '@/store'
 import JSzip from 'jszip'
 import saveAs from './FileSaver'
-import store from '@/store'
 
 const suffixMap = {
   html: 'html',
@@ -23,10 +23,10 @@ const handlePreviewDoc = doc => {
   return doc
     .replace('<script src="/code-run-online/base/index.js"></script>', '')
     .replace('<script src="/code-run-online/console/index.js"></script>', '')
-    .replace(/".\/lib/gim, '"https://wanglin2.github.io/code-run-online/lib')
+    .replace(/".\/lib/gim, '"https://dreamherok.github.io/code-editor/lib')
     .replace(
       /"\/code-run-online\/lib/gim,
-      '"https://wanglin2.github.io/code-run-online/lib'
+      '"https://dreamherok.github.io/code-editor/lib'
     )
 }
 
